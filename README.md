@@ -1,5 +1,6 @@
-![MyomiBanner2](https://user-images.githubusercontent.com/103922744/225527401-638dc742-132d-4861-b3ea-fb7ab4a7681b.png
+![MyomiBanner2](https://user-images.githubusercontent.com/103922744/230006974-1f128fe7-bea4-4437-85fb-078e4755385a.png
 )
+
 <br>
 <br>
 
