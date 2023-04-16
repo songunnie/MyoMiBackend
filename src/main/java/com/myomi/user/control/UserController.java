@@ -3,6 +3,8 @@ package com.myomi.user.control;
 import java.util.Map;
 import java.util.Random;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,7 +50,7 @@ public class UserController {
 
     @ApiOperation(value = "사용자| 일반 회원가입")
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@RequestBody UserSignUpReqeustDto userSignUpReqeustDto) {
+    public ResponseEntity<?> signup(@RequestBody @Valid UserSignUpReqeustDto userSignUpReqeustDto) {
     	return new ResponseEntity<>(userService.signup(userSignUpReqeustDto),HttpStatus.OK);
     }
     

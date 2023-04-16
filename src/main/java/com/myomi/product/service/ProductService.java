@@ -99,6 +99,7 @@ public class ProductService {
 		return new ResponseDetails(product.getProdNum(), 200, path);
 	}
 	
+	//판매자모드 - 판매 상품 조회
 	@Transactional
 	public ResponseDetails getProductBySellerId(String sellerId) throws NoResourceException{
 		String path = "/api/product";
@@ -116,6 +117,7 @@ public class ProductService {
 		return new ResponseDetails(list, 200, path);
 	}
 	
+	//일반모드 - 상품 상세 조회 + 베스트리뷰,리뷰,문의
 	@Transactional
 	public ResponseDetails getOneProd(Long prodNum) throws NoResourceException {
 		String path = "/api/product";
@@ -142,7 +144,8 @@ public class ProductService {
 		return new ResponseDetails(p.getProdNum(), 200, path);
 	}
 	
-	@Transactional //성공
+	//상품 삭제
+	@Transactional
 	public ResponseDetails removeProduct(Long prodNum, Authentication seller) throws NoResourceException {
 		String path = "/api/product";
 		Product p = productRepository.findById(prodNum)
@@ -156,6 +159,7 @@ public class ProductService {
 		return new ResponseDetails(p.getProdNum(), 200, path);
 	}
 	
+	//일반모드 - 모든 상품 리스트 조회
 	@Transactional
 	public ResponseDetails getAllProduct() { 
 		String path = "/api/product";
@@ -174,6 +178,7 @@ public class ProductService {
 		return new ResponseDetails(list, 200, path);
 	}
 	
+	//일반모드 - 상품 키워드로 검색
 	@Transactional
 	public ResponseDetails getAllProduct(String keyword) {
 		String path = "/api/product";
@@ -192,7 +197,7 @@ public class ProductService {
 		return new ResponseDetails(list, 200, path);
 	}
 	
-	// 셀러페이지
+	//판매자모드 - 판매자 판매 상품 상세 조회
 	@Transactional
 	public ResponseDetails getOneProdBySeller(Long prodNum, Authentication seller) throws NoResourceException {
 		String path = "/api/product";

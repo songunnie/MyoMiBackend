@@ -14,7 +14,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Getter @NoArgsConstructor @JsonAutoDetect
+@Getter
+@NoArgsConstructor
+@JsonAutoDetect
 public class ProductSaveDto {
 	@NotBlank
 	private String category;
@@ -39,7 +41,6 @@ public class ProductSaveDto {
 	
 	private MultipartFile file;
 	
-	
 	@Builder
 	public ProductSaveDto(String category, String name, Long originPrice,  int percentage, int week, String detail, MultipartFile file) {
 		this.category = category;
@@ -52,9 +53,7 @@ public class ProductSaveDto {
 	}
 	
 	//상품 등록시 사용
-	public Product toEntity(ProductSaveDto productSaveDto
-			, Seller seller, String fileUrl
-			) {
+	public Product toEntity(ProductSaveDto productSaveDto, Seller seller, String fileUrl) {
 		return Product.builder()
 				.seller(seller)
 				.category(productSaveDto.getCategory())
@@ -65,7 +64,7 @@ public class ProductSaveDto {
 				.detail(productSaveDto.getDetail())
 				.reviewCnt(0L)
 				.stars(0)
-				.fee(9) //기본값 9로 넣어주려고 셋팅
+				.fee(9)
 				.productImgUrl(fileUrl)
 				.build();
 	}

@@ -35,11 +35,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@SequenceGenerator(
-		 name = "PRODUCT_SEQ_GENERATOR",
-		 sequenceName = "PRODUCT_SEQ", //매핑할 데이터베이스 시퀀스 이름
-		 initialValue = 1, allocationSize = 1)
-//@JsonInclude(JsonInclude.Include.NON_NULL)
+@SequenceGenerator(name = "PRODUCT_SEQ_GENERATOR", sequenceName = "PRODUCT_SEQ", initialValue = 1, allocationSize = 1)
 public class Product {
 	@Id
 	@Column(name = "num")
@@ -48,7 +44,6 @@ public class Product {
 	private Long prodNum;
 	
 	@ManyToOne
-//	(fetch = FetchType.LAZY) //지연로딩
 	@JoinColumn(name = "seller_id")
 	private Seller seller;
 	
@@ -77,25 +72,21 @@ public class Product {
 	private Long reviewCnt;
 	
 	@Column(name = "stars")
-	private float stars; //테스트 끝나고 float로 바꾸기..ㅠㅠ.까먹음
+	private float stars;
 	
 	@Column(name = "fee")
-	@ColumnDefault("9") //default 9
+	@ColumnDefault("9")
 	private int fee;
 
 	@Column(name = "modified_date")
 	@JsonFormat(timezone = "Asia/Seoul", pattern = "yy-MM-dd")
 	private LocalDateTime modifiedDate;
 	
-	@OneToMany(mappedBy = "product"
-//			, fetch = FetchType.LAZY
-			)
+	@OneToMany(mappedBy = "product")
 	@JsonIgnore
 	private List<OrderDetail> orderDetails;
 	
-	@OneToMany(mappedBy = "prodNum", 
-			fetch = FetchType.LAZY, 
-			cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "prodNum", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<Qna> qnas;
 	
 	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
@@ -104,8 +95,7 @@ public class Product {
 	private String productImgUrl;
 	
 	@Builder
-	public Product(
-			Long prodNum, Seller seller, String category, String name, Long originPrice, int percentage, int week, int status,
+	public Product(Long prodNum, Seller seller, String category, String name, Long originPrice, int percentage, int week, int status,
 			String detail, int fee, Long reviewCnt, float stars, List<OrderDetail> orderDetails, String productImgUrl, LocalDateTime modifiedDate) {
 		this.prodNum = prodNum;
 		this.seller = seller;

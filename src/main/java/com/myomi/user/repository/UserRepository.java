@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
 	//JWT 로그인시 사용 - 유저 찾기

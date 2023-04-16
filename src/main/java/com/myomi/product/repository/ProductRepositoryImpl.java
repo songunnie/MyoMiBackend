@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * 
  * @author rimsong
- *
+ * 상품 한개 상세 정보 + 리뷰리스트, 베스트리뷰 리스트, 상품문의 리스트 조회 QueryDSL
  */
 @Repository
 @RequiredArgsConstructor

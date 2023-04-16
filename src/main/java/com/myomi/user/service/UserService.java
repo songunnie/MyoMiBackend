@@ -79,6 +79,7 @@ public class UserService {
     }
     
     //회원가입
+    @Transactional
     public ResponseDetails signup(UserSignUpReqeustDto userSignUpReqeustDto) throws DupUserInfoException, ResponseStatusException {
     	String path = "/api/user";
     	//휴대폰 번호가 이미 등록된 번호인지 확인 (이 메서드는 아래에 있습니다.)
@@ -88,6 +89,9 @@ public class UserService {
     	}
     	
     	boolean checkId = checkIdExists(userSignUpReqeustDto.getId());
+    	if(checkId) { //이미 등록된 ID면 예외발생
+    		throw new DupUserInfoException(ErrorCode.BAD_REQUEST, "DUPLICATED_USER_ID");
+    	}
     	
     	String encPwd = passwordEncoder.encode(userSignUpReqeustDto.getPwd());
 
@@ -110,15 +114,8 @@ public class UserService {
     	throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
     
-    public ResponseEntity<?> checkIdDup(String id) {
-    	boolean checkId = checkIdExists(id);
-    	if(checkId) { //아이디가 이미 등록된 아이디면 예외발생
-    		throw new DupUserInfoException(ErrorCode.BAD_REQUEST, "DUPLICATED_USER_ID");
-    	}
-    	return new ResponseEntity<>(HttpStatus.OK);
-    }
-    
     // 회원정보 검색
+    @Transactional
     public ResponseEntity<UserDto> getUserInfo(Authentication user) throws NoResourceException {
     	String username = user.getName();
     	User u = userRepository.findById(username)
@@ -137,9 +134,10 @@ public class UserService {
 	    			.point(u.getPoint())
 	    			.seller(u.getSeller())
 	    			.build(), HttpStatus.OK);
-    };
+    }
     
     //회원 정보 수정
+    @Transactional
     public ResponseDetails updateUserInfo(UserDto userDto, Authentication user) {
     	String path = "/api/user";
     	User u = User.builder()
@@ -161,7 +159,7 @@ public class UserService {
     	return userRepository.existsUserById(id);
     }
     
-    //이미 등록된 휴대폰번호인지 확인 - 해당 메서드는 user repository에 선언되어있습니다.
+    //이미 등록된 휴대폰번호인지 확인
     public boolean checkTelExists(String tel) {
     	return userRepository.existsUserByTel(tel);
     }

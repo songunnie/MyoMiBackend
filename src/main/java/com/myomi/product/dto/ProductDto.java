@@ -16,20 +16,13 @@ import lombok.NoArgsConstructor;
 public class ProductDto {
 	private Long prodNum;
 	@JsonIgnore
-	@NotBlank
 	private Seller seller;
-	@NotBlank
 	private String category;
-	@NotBlank
 	private String name;
-	@NotBlank
 	private Long originPrice;
-	@NotBlank
 	private int percentage;
-	@NotBlank
 	private int week;
 	private int status;
-	@Size(max = 60, message = "상품 특이사항을 입력해주세요.")
 	private String detail;
 	private String productImgUrl;
 	private Long reviewCnt;

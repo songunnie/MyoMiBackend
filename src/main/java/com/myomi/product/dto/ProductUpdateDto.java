@@ -11,7 +11,9 @@ import com.myomi.seller.entity.Seller;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Getter @NoArgsConstructor @JsonAutoDetect
+@Getter
+@NoArgsConstructor
+@JsonAutoDetect
 public class ProductUpdateDto {	
 	@Size(max = 60, message = "상품 특이사항을 입력해주세요.")
 	private String detail;
